@@ -1,0 +1,29 @@
+[build-system]
+requires = [
+    "setuptools>=61.0",
+    "Cython>=3.0.0",
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "abmodel"
+version = "2.0"
+requires-python = ">=3.12"
+authors = [
+  {name = "Klemen Berkovic", email = "klemen.berkovic@student.um.si"},
+]
+maintainers = [
+  {name = "Klemen Berkovic", email = "klemen.berkovic@student.um.si"}
+]
+description = "Fitness function used to evaluate AB model that can represent a proten or a chemical structure."
+readme = "README.md"
+license = {text = "GPL V3"}
+keywords = ["c", "optimization", "benchmarks", "abmodel", "Global Optimization"]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+]
+
+[project.urls]
+Homepage = "https://github.com/kb2623/ABModelFunction"
+Repository = "https://github.com/kb2623/ABModelFunction.git"
