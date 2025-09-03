@@ -65,16 +65,17 @@ ABModel* init_abmodel(const char * sequence) {
 	unsigned int len = strlen(sequence);
 	model->seq_len = len;
 	model->dim = (len - 2) * 2;
+	model->seq = (char *) malloc(len * sizeof(char));
 	for (int i = 0; i < len; i++) {
 		char c = toupper(sequence[i]);
-		if (c =='A' || c == 'B') model->seq[i] = sequence[i];
+		if (c =='A' || c == 'B') model->seq[i] = c;
 		else model->seq[i] = 'A';
 	}
 	return model;
 }
 
 double ** get_abmodel_bounds(ABModel * model) {
-	double ** B = (double **) malloc(2 *sizeof(double *));
+	double ** B = (double **) malloc(2 * sizeof(double *));
 	B[0] = (double *) malloc(model->dim * sizeof(double));
 	B[1] = (double *) malloc(model->dim * sizeof(double));
 	for (int i = 0; i < model->dim; i++) {
