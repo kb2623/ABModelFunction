@@ -60,7 +60,7 @@ void get_pfo_protein(const char * name, char * sequence, double * optimum) {
 	*optimum = instances[0].optimum;
 }
 
-ABModel* init_abmodel(char * sequence) {
+ABModel* init_abmodel(const char * sequence) {
 	ABModel * model = (ABModel *) malloc(sizeof(ABModel));
 	unsigned int len = strlen(sequence);
 	model->seq_len = len;
