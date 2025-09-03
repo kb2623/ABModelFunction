@@ -19,17 +19,20 @@ from abmodeldecl cimport (
 
 
 def pfo_instance(name: str) -> tuple[str, float]:
+    cdef bytes cname = name.encode('utf-8')
     cdef char * seq = <char *> malloc(300)
     cdef double opt
-    get_pfo_protein(name.encode('utf-8'), seq, &opt)
-    return seq, opt
+    get_pfo_protein(cname, seq, &opt)
+    return seq.decode('utf-8'), opt
 
 
 cdef class Model:
     cdef ABModel * model
 
     def __init__(self, str seq):
-        self.model = init_abmodel(seq.encode('utf-8'))
+        cdef bytes b = seq.encode('utf-8')
+        cdef char * cseq = b
+        self.model = init_abmodel(cseq)
 
     def get_bounds(self) -> tuple[list, list]:
         cdef double ** B = get_abmodel_bounds(self.model)
