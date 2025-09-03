@@ -133,4 +133,5 @@ double evaluate_abmodel(ABModel * m, double * xi) {
 /* Code to free the allocated memory */
 void clean_abmodel(ABModel * obj) {
 	free(obj->seq);
+	free(obj);
 }
