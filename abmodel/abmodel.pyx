@@ -7,7 +7,7 @@ import cython
 
 from libc.stdlib cimport malloc, free
 
-from abmodeldecl import cimport (
+from abmodeldecl cimport (
     ABModel,
     get_pfo_protein,
     init_abmodel,
