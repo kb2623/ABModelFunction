@@ -28,8 +28,8 @@ def pfo_instance(name: str) -> tuple[str, float]:
 cdef class Model:
     cdef ABModel * model
 
-    def __init__(self, str sequence):
-        self.model = init_abmodel(sequence)
+    def __init__(self, str seq):
+        self.model = init_abmodel(seq.encode('utf-8'))
 
     def get_bounds(self) -> tuple[list, list]:
         cdef double ** B = get_abmodel_bounds(self.model)

@@ -90,12 +90,13 @@ void clean_abmodel_bounds(double ** B) {
 	free(B);
 }
 
-double evaluate_abmodel(ABModel * m, double * x) {
+double evaluate_abmodel(ABModel * m, double * xi) {
+	unsigned int v;
 	double e1 = 0, e2 = 0, d, c, p, x, y, z;
 	Point * tertiary = (Point *) malloc((m->seq_len) * sizeof(Point));
 	double * cos_theta = (double *) malloc((m->seq_len - 2) * sizeof(double));
-	double * theta = x;
-	double * beta = x[m->seq_len - 2];
+	double * theta = xi;
+	double * beta = xi + m->seq_len - 2;
 	for (int i = 0; i < m->seq_len - 2; i++) cos_theta[i] = cos(theta[i]);
 	// Set first two points that are constant
 	tertiary[0].x = 0, tertiary[0].y = 0, tertiary[0].z = 0;
@@ -111,15 +112,15 @@ double evaluate_abmodel(ABModel * m, double * x) {
 	for (int i = 0; i < m->seq_len - 2; i++) {
 		e1 += 1 - cos_theta[i];
 		for (int j = i + 2; j < m->seq_len; j++) {
-			double c = 0;
-			if (m->seq[i] + m->seq[j] == 130) c = 1;
-			else if (m->seq[i] + m->seq[j] == 131) c = -0.5;
+			v = m->seq[i] + m->seq[j];
+			if (v == 130) c = 1;
+			else if (v == 131) c = -0.5;
 			else c = 0.5;
-			double x = tertiary[i].x - tertiary[j].x;
-			double y = tertiary[i].y - tertiary[j].y;
-			double z = tertiary[i].z - tertiary[j].z;
-			double d = x * x + y * y + z * z;
-			double p = 1 / (d * d * d);
+			x = tertiary[i].x - tertiary[j].x;
+			y = tertiary[i].y - tertiary[j].y;
+			z = tertiary[i].z - tertiary[j].z;
+			d = x * x + y * y + z * z;
+			p = 1 / (d * d * d);
 			e2 += p * p - c * p;
 		}
 	}
