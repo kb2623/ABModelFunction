@@ -13,7 +13,8 @@ from abmodeldecl cimport (
     init_abmodel,
     get_abmodel_bounds,
     clean_abmodel_bounds,
-    evaluate_abmodel
+    evaluate_abmodel,
+    clean_abmodel
 )
 
 
