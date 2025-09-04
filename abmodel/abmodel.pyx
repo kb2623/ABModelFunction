@@ -42,7 +42,7 @@ cdef class Model:
 
     def seq(self) -> str:
         cdef char * cseq = self.model.seq
-        return None
+        return cseq.decode('utf-8')
 
     def bounds(self) -> tuple[list, list]:
         cdef double ** B = get_abmodel_bounds(self.model)
