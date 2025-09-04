@@ -24,7 +24,7 @@ def pfo_instance(name: str) -> tuple[str, float]:
     cdef double opt
     get_pfo_protein(cname, seq, &opt)
     return seq.decode('utf-8'), opt
-
+    
 
 cdef class Model:
     cdef ABModel * model
@@ -34,7 +34,17 @@ cdef class Model:
         cdef char * cseq = b
         self.model = init_abmodel(cseq)
 
-    def get_bounds(self) -> tuple[list, list]:
+    def dim(self) -> int:
+        return self.model.dim
+
+    def seq_len(self) -> int:
+        return self.model.seq_len
+
+    def seq(self) -> str:
+        cdef char * cseq = self.model.seq
+        return None
+
+    def bounds(self) -> tuple[list, list]:
         cdef double ** B = get_abmodel_bounds(self.model)
         Bl, Bu = [], []
         for i in range(self.model.dim): Bl.append(B[0][i])
